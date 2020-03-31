@@ -13,11 +13,11 @@ def home(request):
 
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
-    template_name = 'index.html'
+    template_name = 'homepage/home.html'
 
 class PostDetail(generic.DetailView):
     model = Post
-    template_name = 'post_detail.html'
+    template_name = 'homepage/home.html'
 
 def post_detail(request, slug):
     template_name = 'homepage/home.html'
@@ -27,7 +27,7 @@ def post_detail(request, slug):
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
+            new_comment = comment_form.save(commit=True)
             new_comment.post = post
             new_comment.save()
     else:

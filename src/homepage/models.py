@@ -29,3 +29,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
+class art(models.Model):
+    image = models.ImageField(upload_to='images/')
+    description = models.CharField(max_length=300)

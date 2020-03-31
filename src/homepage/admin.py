@@ -1,6 +1,8 @@
 from django.contrib import admin
+from .models import Post, Comment, art
 
-from .models import Post, Comment
+admin.site.register(art)
+
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('name', 'body', 'post', 'created_on', 'active')
     list_filter = ('active', 'created_on')
