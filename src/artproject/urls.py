@@ -24,4 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls), 
     path('', include('homepage.urls')),
     path('images/', include('images.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('textanalysis/', include('textanalysis.urls')),
+] 

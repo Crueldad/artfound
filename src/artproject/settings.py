@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'textanalysis.apps.TextanalysisConfig',
     'images.apps.ImagesConfig',
     'crispy_forms',
     'homepage.apps.HomepageConfig',
