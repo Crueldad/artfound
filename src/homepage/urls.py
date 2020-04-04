@@ -3,5 +3,5 @@ from django.conf.urls import include, url
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', views.post_detail, name='post_detail'),
 ]
