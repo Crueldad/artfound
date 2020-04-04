@@ -40,7 +40,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+            <a class="nav-link js-scroll-trigger" href="images/">Upload Artwork</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
@@ -70,6 +70,7 @@
     </div>
   </header>
 
+
 <!-- Portfolio Grid -->
 <section class="bg-light page-section" id="portfolio">
   <div class="container">
@@ -87,7 +88,8 @@
               <i class="fas fa-plus fa-3x"></i>
             </div>
           </div>
-          <img class="img-fluid" src="{% static 'img/portfolio/01-thumbnail.jpg' %}" alt="">
+          
+          <img class="img-fluid" src="{% static '/portfolio/01-thumbnail.jpg' %}" alt="">
         </a>
         <div class="portfolio-caption">
           <h4>Painting</h4>
@@ -172,6 +174,7 @@
 
 {% load crispy_forms_tags %}
 <div class="col-sm-8 offset-sm-2 text-center">
+  <h1>Please make a comment on one of the artworks above</h1>
 <form method="post" style="margin-top: 1.3em;">
           {{ form | crispy }}
           {% csrf_token %}

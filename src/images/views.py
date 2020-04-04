@@ -22,4 +22,4 @@ def upload_artwork(request):
   
   
 def success(request): 
-    return HttpResponse('successfully uploaded') 
+    return HttpResponse('<a href="http://localhost:8000/">Upload Successful. Click here for homepage!</a>')

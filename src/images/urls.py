@@ -11,7 +11,7 @@ from . import views
 urlpatterns = [
     path('', views.upload_artwork, name = 'upload_artwork'), 
     path('success', views.success, name = 'success'), 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG: 
         urlpatterns += static(settings.MEDIA_URL, 
