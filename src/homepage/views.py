@@ -12,13 +12,26 @@ def home(request):
 
 
 def post_detail(request):
+    c = Images.objects.values('image').order_by('-id')[:10]
+    d = c[0]
+    e = str(d) 
+    f = e.replace("{", "").replace("}", "").replace("'image':","").replace("images/","").replace("'","").replace(" ", "")
+    iposts = f
     if request.method == 'POST':
         form = CommentForm(data=request.POST)
         if form.is_valid():
             form.save()
     else:
         form = CommentForm()
-    return render(request, 'homepage/home.html', {'form': form })
+    return render(request, 'homepage/home.html', {'form': form, 'iposts':iposts })
+
+
+    
+
+
+
+   
+
 
 
 

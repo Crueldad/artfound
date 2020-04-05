@@ -38,15 +38,16 @@ def gettext(request):
         y = vader.polarity_scores(text)
         fdist = FreqDist(filtered_sent)
         if -1<= y['compound'] < -0.6:
-            print('Negative')
+            res = ('Negative')
         if -.6<= y['compound'] < -0.2:
-            print('Somewhat Negative')
+            res = ('Somewhat Negative')
         if -0.2 <= y['compound'] < 0.2:
-            print('Neutral')
+            res = ('Neutral')
         if 0.2 <= y['compound'] < .6:
-            print('Somewhat Positive')
+            res = ('Somewhat Positive')
         if .6 <= y['compound'] <= 1.0:
-            print('Positive')
-        l = ((fdist.most_common(5)), y)
+            res = ('Positive')
+        l = (fdist.most_common(5))
 
-        return render(request, 'textanalysis/textanalysis.html', {'l': l})
+
+        return render(request, 'textanalysis/textanalysis.html', {'l': l, "res":res})
