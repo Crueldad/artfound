@@ -18,6 +18,7 @@ from textblob import classifiers
 import re
 import json 
 
+
 def parse_query(updated_querystring):
     char_index = 0
     main_dict = {}
@@ -62,7 +63,6 @@ def parse_query(updated_querystring):
             else:
                 main_dict[key_string] = value_list
 
-
         # Remove Key and Value from string before starting loop again
         updated_querystring = updated_querystring[char_index+4:]
 
@@ -81,10 +81,69 @@ def gettext(request):
 
     returned_query_string = str(info)
     parsed_dictionary = parse_query(returned_query_string)
+
+
     
+    for x in parsed_dictionary:
+        if x == 'FISHES SWIMMING':
+            FSV = parsed_dictionary['FISHES SWIMMING']
+            vader = SentimentIntensityAnalyzer()
+            F = sum([vader.polarity_scores(sentence)['compound'] for sentence in FSV])/len([vader.polarity_scores(sentence)['compound'] for sentence in FSV])
+            y = F
+        if x == 'NAUTICAL WONDER':
+            FSV1 = parsed_dictionary['NAUTICAL WONDER']
+            vader = SentimentIntensityAnalyzer()
+            N = sum([vader.polarity_scores(sentence)['compound'] for sentence in FSV1])/len([vader.polarity_scores(sentence)['compound'] for sentence in FSV1])
+            y = N
+        if x == 'DESERT BIRD':
+            FSV2 = parsed_dictionary['DESERT BIRD']
+            vader = SentimentIntensityAnalyzer()
+            D = sum([vader.polarity_scores(sentence)['compound'] for sentence in FSV2])/len([vader.polarity_scores(sentence)['compound'] for sentence in FSV2])
+            y = D
 
+    if -1<= y < -0.6:
+        sentiment = ('Overall sentiment is Negative')
+    if -.6<= y < -0.2:
+        sentiment = ('Overall sentiment is Somewhat Negative')
+    if -0.2 <= y < 0.2:
+        sentiment = ('Overall sentiment is Neutral')
+    if 0.2 <= y < .6: 
+        sentiment = ('Overall sentiment is Somewhat Positive')
+    if .6 <= y <= 1.0:
+        sentiment =('Overall sentiment is Positive')
 
-    return render(request, 'textanalysis/textanalysis.html', {'info':info, 'parsed_dictionary':parsed_dictionary})
+    if F > N and F > D:
+        Best_Comment = ('The artwork with the best comments is: Fishes Swimming')
+        common = parsed_dictionary['FISHES SWIMMING']
+    if N > F and N > D:
+        Best_Comment = ('The artwork with the best comments is: Nautical Wonder')
+        common = parsed_dictionary['NAUTICAL WONDER']
+    if D > N and D > F:
+        Best_Comment = ('The artwork with the best comments is: Desert Bird')
+        common = parsed_dictionary['DESERT BIRD']
+
+    K = ''   
+    for word in common:
+        K = K + ' ' + word
+    kp = K.replace("TextBlob", "").replace(".", "").replace("!","").replace("?","")
+    K = word_tokenize(kp)
+    filtered_sent= []
+    stop_words= set(stopwords.words('english'))
+    for w in K:
+        if w not in stop_words:
+            filtered_sent.append(w)
+    #print(filtered_sent)
+    fdist = FreqDist(filtered_sent)
+    # print(len(filtered_sent))
+    x = (.10*len(filtered_sent))
+    if x < 1:
+        x = 1
+    else:
+        x = int(x)
+    most_common_w = 'These are the common words from all comments under the choosen artwork:', (fdist.most_common(x)) 
+        
+    return render(request, 'textanalysis/textanalysis.html', {'parsed_dictionary':parsed_dictionary, 'Best_Comment':Best_Comment, 'sentiment':sentiment,\
+        'most_common_w':most_common_w})
     
    
 
