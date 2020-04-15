@@ -81,6 +81,7 @@
   <br>
   <br>
   <br>
+  
 
 <!-- TextAnalysis-->
 
@@ -89,7 +90,7 @@
 {% block content %}
 
 <div class="col-lg-8 mx-auto text-center">
-<img src= "media\images\rsz_fa1.jpg" alt="best comment image">
+<img src="{{urlz}}" alt="best comment image">
 <br>
 <br>
  {{Best_Comment}}
@@ -101,9 +102,27 @@
 {{most_common_w}}
 <br>
 <br>
-{{parsed_dictionary}}
-</div>
+<h4>Desert Bird Comments:</h4>
+{{dbss}}
 <br>
+<br>
+<h4>Nautical Wonder Comments:</h4>
+{{NW}}
+<br>
+<br>
+<h4>Swimming Fishes:</h4>
+{{SW}} 
+<br>
+<br>
+{{F}} 
+{{N}} 
+{{D}} 
+</div>
+
+
+
+
+
   
 {% endblock %}
     
@@ -157,6 +176,7 @@
       </div>
     </div>
   </footer>   
+
 
   <!-- Bootstrap core JavaScript -->
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>

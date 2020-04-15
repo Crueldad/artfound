@@ -75,7 +75,7 @@ def textanalysis(request):
 
 def gettext(request):
     
-    info = Comment.objects.values('Artwork_Title','Comment_Box').order_by('-id')[:10]
+    info = Comment.objects.values('Artwork_Title','Comment_Box').order_by('-id')
     f = str(type(info))
     first_value =  Comment.objects.all()[:1].get()
 
@@ -85,21 +85,63 @@ def gettext(request):
 
     
     for x in parsed_dictionary:
+        urlz = 'https://i.ibb.co/RPb5QPm/rsz-fa3.jpg'
         if x == 'FISHES SWIMMING':
             FSV = parsed_dictionary['FISHES SWIMMING']
+            K = []
+            for sentence in FSV:
+                tb=TextBlob(sentence)
+                if tb.detect_language() == 'en':
+                    egv = tb
+                    egv = str(egv)
+                    K = K+[egv]
+                else:
+                    egv = tb.translate(to = 'en')
+                    egv = str(egv)
+                    egv = egv.replace('TextBlob', '')
+                    K = K + [egv]
             vader = SentimentIntensityAnalyzer()
-            F = sum([vader.polarity_scores(sentence)['compound'] for sentence in FSV])/len([vader.polarity_scores(sentence)['compound'] for sentence in FSV])
+            F = sum([vader.polarity_scores(str(sentence))['compound'] for sentence in K])/len([vader.polarity_scores(sentence)['compound'] for sentence in K])
             y = F
+            
         if x == 'NAUTICAL WONDER':
+            urlz = 'https://i.ibb.co/Xp2rdwp/rsz-fa2.jpg'
             FSV1 = parsed_dictionary['NAUTICAL WONDER']
+            Z = []
+            for sentence1 in FSV1:
+                tb=TextBlob(sentence1)
+                if tb.detect_language() == 'en':
+                    egv1 = tb
+                    egv1 = str(egv1)
+                    Z = Z+[egv1]
+                else:
+                    egv1 = tb.translate(to = 'en')
+                    egv1 = str(egv1)
+                    egv1 = egv1.replace('TextBlob', '')
+                    Z = Z + [egv1]
             vader = SentimentIntensityAnalyzer()
-            N = sum([vader.polarity_scores(sentence)['compound'] for sentence in FSV1])/len([vader.polarity_scores(sentence)['compound'] for sentence in FSV1])
+            N = sum([vader.polarity_scores(str(sentence1))['compound'] for sentence in Z])/len([vader.polarity_scores(str(sentence))['compound'] for sentence in Z])
             y = N
+            
         if x == 'DESERT BIRD':
+            urlz = 'https://i.ibb.co/CHQdnYC/rsz-fa1.jpg'
             FSV2 = parsed_dictionary['DESERT BIRD']
+            A = []
+            for sentence2 in FSV2:
+                tb=TextBlob(sentence2)
+                if tb.detect_language() == 'en':
+                    egv2 = tb
+                    egv2 = str(egv2)
+                    A = A+[egv2]
+                else:
+                    egv2 = tb.translate(to = 'en')
+                    egv2 = str(egv2)
+                    egv2 = egv2.replace('TextBlob', '')
+                    A = A + [egv2]
             vader = SentimentIntensityAnalyzer()
-            D = sum([vader.polarity_scores(sentence)['compound'] for sentence in FSV2])/len([vader.polarity_scores(sentence)['compound'] for sentence in FSV2])
+            D = sum([vader.polarity_scores(str(sentence2))['compound'] for sentence2 in A])/len([vader.polarity_scores(str(sentence2))['compound'] for sentence2 in A])
             y = D
+            
 
     if -1<= y < -0.6:
         sentiment = ('Overall sentiment is Negative')
@@ -141,9 +183,19 @@ def gettext(request):
     else:
         x = int(x)
     most_common_w = 'These are the common words from all comments under the choosen artwork:', (fdist.most_common(x)) 
+
+    parsed_dictionarys = "All the comments for all artwork submitted: ", parsed_dictionary['DESERT BIRD']
+    DB = parsed_dictionary['DESERT BIRD'] 
+    dbs = str(DB)
+    dbss = dbs.replace("]"," ").replace("[","").replace("'","")
+    NW = parsed_dictionary['NAUTICAL WONDER']
+    SW = parsed_dictionary['FISHES SWIMMING']
+    
+
+
         
-    return render(request, 'textanalysis/textanalysis.html', {'parsed_dictionary':parsed_dictionary, 'Best_Comment':Best_Comment, 'sentiment':sentiment,\
-        'most_common_w':most_common_w})
+    return render(request, 'textanalysis/textanalysis.html', {'Best_Comment':Best_Comment, 'sentiment':sentiment,\
+        'most_common_w':most_common_w, 'dbss':dbss, 'NW':NW, 'SW':SW, 'urlz':urlz, 'F':F, 'N':N, 'D':D})
     
    
 
