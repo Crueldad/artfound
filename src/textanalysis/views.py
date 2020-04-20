@@ -119,7 +119,7 @@ def gettext(request):
                     egv1 = egv1.replace('TextBlob', '')
                     Z = Z + [egv1]
             vader = SentimentIntensityAnalyzer()
-            N = sum([vader.polarity_scores(str(sentence1))['compound'] for sentence in Z])/len([vader.polarity_scores(str(sentence))['compound'] for sentence in Z])
+            N = sum([vader.polarity_scores(str(sentence1))['compound'] for sentence1 in Z])/len([vader.polarity_scores(str(sentence1))['compound'] for sentence1 in Z])
             y = N
             
             
