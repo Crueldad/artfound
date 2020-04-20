@@ -102,28 +102,41 @@
 {{most_common_w}}
 <br>
 <br>
-<h4>Desert Bird Comments:</h4>
-{{dbss}}
-<br>
-<br>
-<h4>Nautical Wonder Comments:</h4>
-{{NW}}
-<br>
-<br>
-<h4>Swimming Fishes:</h4>
-{{SW}} 
-<br>
-<br>
+<h4>F</h4>
 {{F}} 
+<h4>N</h4>
 {{N}} 
+<h4>D</h4>
 {{D}} 
 </div>
 
+<div class="col-lg-8 mx-auto text-left">
+<br>
+<h4>Desert Bird Comments:</h4>
+<ul>
+{% for i in DB %}
+  <li>{{i}}</li>
+  {% endfor %}
+</ul>
+<br>
+<br>
+<h4>Nautical Wonder Comments:</h4>
+<ul>
+{% for n in NW %}
+  <li>{{n}}</li>
+  {% endfor %}
+</ul>
+<br>
+<br>
+<h4>Swimming Fishes:</h4>
+<ul>
+{% for s in SW %}
+  <li>{{s}}</li>
+  {% endfor %}
+</ul> 
+<br>
+</div>
 
-
-
-
-  
 {% endblock %}
     
   
