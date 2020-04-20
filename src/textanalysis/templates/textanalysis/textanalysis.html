@@ -74,13 +74,7 @@
   <br>
   <br>
   <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+  <br
   
 
 <!-- TextAnalysis-->
@@ -90,29 +84,43 @@
 {% block content %}
 
 <div class="col-lg-8 mx-auto text-center">
-<img src="{{urlz}}" alt="best comment image">
+<head>
+<link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+<style>
+h3 {
+ font-family: 'Aclonica';font-size: 22px;
+}
+</style>
+</head>
+<body>
+<img src="{{photos}}" alt="best comment image">
 <br>
 <br>
- {{Best_Comment}}
+ <h3> {{Best_Comment}} </h3>
 <br>
 <br>
-{{sentiment}}
+<h3>{{sentiment}} </h3>
 <br>
 <br>
-{{most_common_w}}
+<h3> {{most_common_w}} </h3>
 <br>
 <br>
-<h4>F</h4>
-{{F}} 
-<h4>N</h4>
-{{N}} 
-<h4>D</h4>
-{{D}} 
 </div>
 
+
+
+
 <div class="col-lg-8 mx-auto text-left">
+<head>
+<link href='https://fonts.googleapis.com/css?family=Allerta Stencil' rel='stylesheet'>
+<style>
+li {
+ font-family: 'Allerta Stencil';font-size: 22px;
+}
+</style>
+</head>
 <br>
-<h4>Desert Bird Comments:</h4>
+<h4 style="color: red ">Desert Bird Comments:</h4>
 <ul>
 {% for i in DB %}
   <li>{{i}}</li>
@@ -120,7 +128,7 @@
 </ul>
 <br>
 <br>
-<h4>Nautical Wonder Comments:</h4>
+<h4 style="color: orange ">Nautical Wonder Comments:</h4>
 <ul>
 {% for n in NW %}
   <li>{{n}}</li>
@@ -128,7 +136,7 @@
 </ul>
 <br>
 <br>
-<h4>Swimming Fishes:</h4>
+<h4 style="color: blue ">Swimming Fishes:</h4>
 <ul>
 {% for s in SW %}
   <li>{{s}}</li>

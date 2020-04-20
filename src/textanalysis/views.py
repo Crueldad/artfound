@@ -103,6 +103,7 @@ def gettext(request):
             F = sum([vader.polarity_scores(str(sentence))['compound'] for sentence in K])/len([vader.polarity_scores(sentence)['compound'] for sentence in K])
             y = F
             
+            
         if x == 'NAUTICAL WONDER':
             FSV1 = parsed_dictionary['NAUTICAL WONDER']
             Z = []
@@ -120,6 +121,7 @@ def gettext(request):
             vader = SentimentIntensityAnalyzer()
             N = sum([vader.polarity_scores(str(sentence1))['compound'] for sentence in Z])/len([vader.polarity_scores(str(sentence))['compound'] for sentence in Z])
             y = N
+            
             
         if x == 'DESERT BIRD':
             FSV2 = parsed_dictionary['DESERT BIRD']
@@ -139,6 +141,7 @@ def gettext(request):
             D = sum([vader.polarity_scores(str(sentence2))['compound'] for sentence2 in A])/len([vader.polarity_scores(str(sentence2))['compound'] for sentence2 in A])
             y = D
             
+            
 
     if -1<= y < -0.6:
         sentiment = ('Overall sentiment is Negative')
@@ -154,12 +157,15 @@ def gettext(request):
     if F > N and F > D:
         Best_Comment = ('The artwork with the best comments is: Fishes Swimming')
         common = parsed_dictionary['FISHES SWIMMING']
+        photos = "https://i.imgur.com/NwSJbD4.jpg"
     if N > F and N > D:
         Best_Comment = ('The artwork with the best comments is: Nautical Wonder')
         common = parsed_dictionary['NAUTICAL WONDER']
+        photos = "https://i.imgur.com/knBftJv.jpg"
     if D > N and D > F:
         Best_Comment = ('The artwork with the best comments is: Desert Bird')
         common = parsed_dictionary['DESERT BIRD']
+        photos = "https://i.imgur.com/9BnY3kd.jpg"
 
     K = ''   
     for word in common:
@@ -193,6 +199,6 @@ def gettext(request):
 
         
     return render(request, 'textanalysis/textanalysis.html', {'Best_Comment':Best_Comment, 'sentiment':sentiment,\
-        'most_common_w':most_common_w, 'DB':DB, 'NW':NW, 'SW':SW, 'F':F, 'N':N, 'D':D})
+        'most_common_w':most_common_w, 'DB':DB, 'NW':NW, 'SW':SW, 'F':F, 'N':N, 'D':D, 'photos':photos})
     
    
