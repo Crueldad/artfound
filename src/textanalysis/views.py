@@ -169,25 +169,53 @@ def gettext(request):
         sentiment =('Overall sentiment is Positive')
 
 
-    K = ''   
-    for word in common:
-        K = K + ' ' + word
-    kp = K.replace("TextBlob", "").replace(".", "").replace("!","").replace("?","")
-    K = word_tokenize(kp)
-    filtered_sent= []
-    stop_words= set(stopwords.words('english'))
-    for w in K:
-        if w not in stop_words:
-            filtered_sent.append(w)
-    #print(filtered_sent)
-    fdist = FreqDist(filtered_sent)
-    # print(len(filtered_sent))
-    x = (.10*len(filtered_sent))
-    if x < 1:
-        x = 1
-    else:
-        x = int(x)
-    most_common_w = 'These are the common words from all comments under the choosen artwork:', (fdist.most_common(x)) 
+    K = [ 'fantastic', 'wonderful', 'beautiful', 'colorful', 'amazing', 'artistic', 'happy', 'love', 'stunning', 'terrible', 'horrible']
+    LL = {}
+    MM = []
+
+    for sentence in common:
+        MM = MM + [sentence]
+    for mmm in MM:
+        MMM = [MM]
+    for x in MMM:
+        xm = x
+        xs = str(xm)
+        xss = xs.split()
+    
+            
+    for words in xss:
+        if words in K:
+            if words not in LL:
+                LL[words] = 1
+            else:
+                LL[words] = LL[words] + 1
+    J = []
+    for key in LL:
+        if LL[key] >= 1:
+            y = LL[key]
+            J = J + [key+ ':' + ' ' + str(y)]
+        else:
+            pass 
+    
+    # kp = K.replace("TextBlob", "").replace(".", "").replace("!","").replace("?","")
+    # K = word_tokenize(kp)
+    # filtered_sent= []
+    # stop_words= set(stopwords.words('english'))
+    # for w in K:
+    #     if w not in stop_words:
+    #         filtered_sent.append(w)
+    # #print(filtered_sent)
+    # fdist = FreqDist(filtered_sent)
+    # # print(len(filtered_sent))
+    # x = (.10*len(filtered_sent))
+    # if x < 1:
+    #     x = 1
+    # else:
+    #     x = int(x)
+    JS = str(J)
+    JSS = JS.replace("[", "").replace("]", "").replace("'", "")
+    most_common_w = 'These are the common words from all comments under the choosen artwork:'
+
 
     
     DB = parsed_dictionary['DESERT BIRD'] 
@@ -201,6 +229,6 @@ def gettext(request):
 
         
     return render(request, 'textanalysis/textanalysis.html', {'Best_Comment':Best_Comment, 'sentiment':sentiment,\
-        'most_common_w':most_common_w, 'DB':DB, 'NW':NW, 'SW':SW, 'F':F, 'N':N, 'D':D, 'photos':photos})
+        'DB':DB, 'NW':NW, 'SW':SW, 'F':F, 'N':N, 'D':D, 'photos':photos, 'most_common_w':most_common_w, 'JSS':JSS})
     
    
