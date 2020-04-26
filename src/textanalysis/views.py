@@ -101,7 +101,7 @@ def gettext(request):
                     K = K + [egv]
             vader = SentimentIntensityAnalyzer()
             F = sum([vader.polarity_scores(str(sentence))['compound'] for sentence in K])/len([vader.polarity_scores(sentence)['compound'] for sentence in K])
-            y = F
+            
             
             
         if x == 'NAUTICAL WONDER':
@@ -120,7 +120,7 @@ def gettext(request):
                     Z = Z + [egv1]
             vader = SentimentIntensityAnalyzer()
             N = sum([vader.polarity_scores(str(sentence1))['compound'] for sentence1 in Z])/len([vader.polarity_scores(str(sentence1))['compound'] for sentence1 in Z])
-            y = N
+            
             
             
         if x == 'DESERT BIRD':
@@ -139,33 +139,35 @@ def gettext(request):
                     A = A + [egv2]
             vader = SentimentIntensityAnalyzer()
             D = sum([vader.polarity_scores(str(sentence2))['compound'] for sentence2 in A])/len([vader.polarity_scores(str(sentence2))['compound'] for sentence2 in A])
-            y = D
             
-            
-
-    if -1<= y < -0.6:
-        sentiment = ('Overall sentiment is Negative')
-    if -.6<= y < -0.2:
-        sentiment = ('Overall sentiment is Somewhat Negative')
-    if -0.2 <= y < 0.2:
-        sentiment = ('Overall sentiment is Neutral')
-    if 0.2 <= y < .6: 
-        sentiment = ('Overall sentiment is Somewhat Positive')
-    if .6 <= y <= 1.0:
-        sentiment =('Overall sentiment is Positive')
 
     if F > N and F > D:
         Best_Comment = ('The artwork with the best comments is: Fishes Swimming')
         common = parsed_dictionary['FISHES SWIMMING']
         photos = "https://i.imgur.com/NwSJbD4.jpg"
+        y = F
     if N > F and N > D:
         Best_Comment = ('The artwork with the best comments is: Nautical Wonder')
         common = parsed_dictionary['NAUTICAL WONDER']
         photos = "https://i.imgur.com/knBftJv.jpg"
+        y = N
     if D > N and D > F:
         Best_Comment = ('The artwork with the best comments is: Desert Bird')
         common = parsed_dictionary['DESERT BIRD']
         photos = "https://i.imgur.com/9BnY3kd.jpg"
+        y = D
+
+    if -1<= y < -0.6:
+        sentiment = ('Overall sentiment is Negative')
+    elif -.6<= y < -0.2:
+        sentiment = ('Overall sentiment is Somewhat Negative')
+    elif -0.2 <= y < 0.2:
+        sentiment = ('Overall sentiment is Neutral')
+    elif 0.2 <= y < .6: 
+        sentiment = ('Overall sentiment is Somewhat Positive')
+    elif .6 <= y <= 1.0:
+        sentiment =('Overall sentiment is Positive')
+
 
     K = ''   
     for word in common:
