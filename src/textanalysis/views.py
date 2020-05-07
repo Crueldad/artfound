@@ -82,7 +82,42 @@ def gettext(request):
     returned_query_string = str(info)
     parsed_dictionary = parse_query(returned_query_string)
 
+    infodb = list(Comment.objects.values('Artwork_Title','Comment_Box').order_by('-id'))
+    returned_query_stringdb = str(infodb)
+    parsed_dictionarydb = parse_query(returned_query_stringdb)
 
+    kkkk = []
+    for xx in infodb:
+        idbb = xx
+        kkkk.append(idbb)
+        idb = kkkk
+    
+    fss = []
+    nww = []
+    dbb = []
+    for xxx in kkkk:
+        if xxx['Artwork_Title'] == 'FISHES SWIMMING':
+            fss.append(xxx['Comment_Box'])
+            idbbb = fss
+        elif xxx['Artwork_Title'] == 'NAUTICAL WONDER':
+            nww.append(xxx['Comment_Box'])
+            idnww = nww
+        elif xxx['Artwork_Title'] == 'DESERT BIRD':
+            dbb.append(xxx['Comment_Box'])
+            iddbb = dbb
+        
+
+
+
+
+
+
+
+
+
+    parsed_dictionarydbdb = parsed_dictionarydb['DESERT BIRD']
+    parsed_dictionarydbfs = parsed_dictionarydb['FISHES SWIMMING']
+    parsed_dictionarydbnw = parsed_dictionarydb['NAUTICAL WONDER']
     
     for x in parsed_dictionary:
         if x == 'FISHES SWIMMING':
@@ -169,7 +204,7 @@ def gettext(request):
         sentiment =('Overall sentiment is Positive')
 
 
-    K = [ 'fantastic', 'wonderful', 'beautiful', 'colorful', 'amazing', 'artistic', 'happy', 'love', 'stunning', 'terrible', 'horrible']
+    K = [ 'fantastic', 'wonderful', 'beautiful', 'colorful', 'amazing', 'artistic', 'happy', 'love', 'stunning', 'terrible', 'horrible', 'brightens', 'brilliant', 'organic' , 'dazzling', 'energy', 'contemporary', 'rich' , 'expressive' ,'colorful' , 'thought-provoking' , 'remarkable' ' phenomenal' ,'passion' , 'divine' , 'colorful' , 'saturated' ,'bold' , 'bright', 'appealing']
     LL = {}
     MM = []
 
@@ -229,6 +264,8 @@ def gettext(request):
 
         
     return render(request, 'textanalysis/textanalysis.html', {'Best_Comment':Best_Comment, 'sentiment':sentiment,\
-        'DB':DB, 'NW':NW, 'SW':SW, 'F':F, 'N':N, 'D':D, 'photos':photos, 'most_common_w':most_common_w, 'JSS':JSS})
+        'DB':DB, 'NW':NW, 'SW':SW, 'F':F, 'N':N, 'D':D, 'photos':photos, 'most_common_w':most_common_w, 'JSS':JSS,'parsed_dictionarydbdb':parsed_dictionarydbdb,\
+            'idbbb':idbbb,'idnww':idnww,'iddbb':iddbb})
     
    
+     
